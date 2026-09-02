@@ -2,8 +2,8 @@
 
 set -eu
 
-FEED_BASE_URL="https://down.dllkids.xyz/openwrt-feed/clashoo"
-GITHUB_API_URL="https://api.github.com/repos/kenzok8/openwrt-clashoo/releases/latest"
+FEED_BASE_URL=""
+GITHUB_API_URL="https://api.github.com/repos/Yogxx/openwrt-clashoo/releases/latest"
 GITHUB_PROXY_PREFIX="${GITHUB_PROXY_PREFIX:-https://ghfast.top/}"
 TMP_DIR="/tmp/clashoo-install"
 
