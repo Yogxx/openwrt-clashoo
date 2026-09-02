@@ -20,6 +20,17 @@
       "acl": ["luci-app-clashoo"]
     }
   },
+  "admin/services/clashoo/configeditor": {
+    "title": "Config Editor",
+    "order": 15,
+    "action": {
+      "type": "view",
+      "path": "clashoo/configeditor"
+    },
+    "depends": {
+      "acl": ["luci-app-clashoo"]
+    }
+  },
   "admin/services/clashoo/config": {
     "title": "Configuration",
     "order": 20,
