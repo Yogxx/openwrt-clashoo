@@ -1,0 +1,46 @@
+name: Sync from upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'
+
+permissions:
+  contents: write
+
+env:
+  UPSTREAM_REPO: https://github.com/kenzok8/openwrt-clashoo.git
+  UPSTREAM_BRANCH: main
+  LOCAL_BRANCH: main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ env.LOCAL_BRANCH }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch upstream
+        run: |
+          git remote add upstream "$UPSTREAM_REPO" 2>/dev/null || true
+          git fetch upstream "$UPSTREAM_BRANCH"
+
+      - name: Merge upstream
+        run: |
+          if git merge --no-edit "upstream/${UPSTREAM_BRANCH}"; then
+            echo "Merge clean."
+          else
+            git merge --abort
+            echo "::error::Conflict merging upstream/${UPSTREAM_BRANCH} — resolve manually, workflow stopped without pushing."
+            exit 1
+          fi
+
+      - name: Push
+        run: git push origin "${LOCAL_BRANCH}"
