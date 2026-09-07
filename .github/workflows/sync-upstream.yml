@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 env:
   UPSTREAM_REPO: https://github.com/kenzok8/openwrt-clashoo.git
@@ -44,3 +45,10 @@ jobs:
 
       - name: Push
         run: git push origin "${LOCAL_BRANCH}"
+
+      - name: Trigger build workflow
+        if: steps.merge.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run release.yml -R "$GITHUB_REPOSITORY" --ref "${LOCAL_BRANCH}"
