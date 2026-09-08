@@ -84,6 +84,9 @@ jobs:
           pkg_hash=$(sha256sum "${tarball}" | cut -d ' ' -f 1)
           echo "pkg_hash=${pkg_hash}" >> $GITHUB_OUTPUT
           # Upload the canonical tarball to the fixed mihomo-src release.
+          gh release view mihomo-src --repo "${{ github.repository }}" >/dev/null 2>&1 || \
+            gh release create mihomo-src --repo "${{ github.repository }}" \
+              --title "mihomo-src" --notes "Pinned mihomo source tarballs" --prerelease
           gh release upload mihomo-src "${tarball}" --repo "${{ github.repository }}" --clobber
           # keep only the newest 3 source tarballs (never the release/tag itself)
           gh release view mihomo-src --repo "${{ github.repository }}" --json assets \
