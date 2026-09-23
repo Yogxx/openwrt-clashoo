@@ -38,6 +38,8 @@ define Package/luci-app-clashoo/install
 	$(INSTALL_DIR) $(1)/usr/share/rpcd/acl.d
 	$(INSTALL_DIR) $(1)/usr/share/clashoo/rpc
 	$(INSTALL_DIR) $(1)/usr/share/luci/menu.d
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/controller
+	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/view
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/tools
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/clashoo
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/cm/mode
@@ -48,6 +50,8 @@ define Package/luci-app-clashoo/install
 	$(INSTALL_BIN) ./root/usr/share/clashoo/rpc/backup_archive.sh $(1)/usr/share/clashoo/rpc/backup_archive.sh
 	$(INSTALL_DATA) ./root/usr/share/rpcd/acl.d/luci-app-clashoo.json $(1)/usr/share/rpcd/acl.d/luci-app-clashoo.json
 	$(INSTALL_DATA) ./root/usr/share/luci/menu.d/luci-app-clashoo.json $(1)/usr/share/luci/menu.d/luci-app-clashoo.json
+	$(INSTALL_DATA) ./root/usr/lib/lua/luci/controller/clashoo.lua $(1)/usr/lib/lua/luci/controller/clashoo.lua
+	$(INSTALL_DATA) ./root/usr/lib/lua/luci/view/clashoo.htm $(1)/usr/lib/lua/luci/view/clashoo.htm
 
 	$(INSTALL_DATA) ./htdocs/luci-static/resources/tools/clashoo.js $(1)/www/luci-static/resources/tools/clashoo.js
 	$(INSTALL_DATA) ./htdocs/luci-static/resources/view/clashoo/* $(1)/www/luci-static/resources/view/clashoo/
